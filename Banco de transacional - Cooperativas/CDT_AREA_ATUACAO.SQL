@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS CDT_AREA_ATUACAO (
+  idAreaAtuacao INT NOT NULL,
+  desc_area_atuacao VARCHAR(100) NULL,
+  PRIMARY KEY (idAreaAtuacao)
+);

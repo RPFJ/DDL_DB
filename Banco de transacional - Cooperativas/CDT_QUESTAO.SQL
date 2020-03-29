@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS CDT_QUESTAO (
+  idQuestao INT NOT NULL,
+  desc_questao TEXT NULL,
+  PRIMARY KEY (idQuestao)
+);

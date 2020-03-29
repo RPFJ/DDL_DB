@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS CDT_TP_ORGANIZACAO (
+  idTipoOrganizacao INT NOT NULL,
+  nome_tipo VARCHAR(100) NULL,
+  PRIMARY KEY (idTipoOrganizacao)
+);

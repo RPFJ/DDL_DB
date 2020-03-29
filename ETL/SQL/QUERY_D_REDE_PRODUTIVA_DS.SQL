@@ -1,0 +1,9 @@
+SELECT r_produtiva.IDREDE_PRODUTIVA AS ID_REDE_PRODUTIVA
+    , r_produtiva.DESC_REDE AS REDE_PRODUTIVA_DESC
+    , r_produtiva.LATITUDE 
+    , r_produtiva.LONGITUDE
+    , r_produtiva.ID_TIPO_REDE AS TIPO_REDE_ID
+    , t_rede.DESCRICAO AS TIPO_REDE_DESC
+FROM CDT_REDE_PRODUTIVA r_produtiva
+LEFT JOIN CDT_TP_REDE t_rede
+ON r_produtiva.ID_TIPO_REDE =  t_rede.IDTIPO_REDE

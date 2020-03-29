@@ -1,0 +1,43 @@
+create or replace NONEDITIONABLE PROCEDURE PRC_TRANSFORMA_DADOS AS
+    v_log ADM_LOG_DS.ACONTECIMENTO%TYPE;
+BEGIN
+
+    PKG_TRANSFORMA_DADOS.T_F_EVOLUCAO;
+    PKG_TRANSFORMA_DADOS.T_F_DESENVOLVIMENTO_LOCAL;
+    PKG_TRANSFORMA_DADOS.T_F_DESENVOLVIMENTO_COLETA;
+
+    BEGIN
+        INSERT INTO ADM_LOG_DS (
+            ID_LOG
+            , PASSO
+            , TIPO
+            , ACONTECIMENTO
+        ) VALUES (
+            SEQ_ADM_LOG_DS.NEXTVAL
+            , 'TRANSFORMACAO DE DADOS[PRC_TRANSFORMA_DADOS]'
+            , 'T'
+            , 'TRANSFORMACAO DE DADOS REALIZADA COM SUCESSO'
+        );
+    END;
+
+    COMMIT WORK;
+
+EXCEPTION WHEN OTHERS THEN
+    ROLLBACK;
+
+    BEGIN
+        v_log := 'FALHA NA TRANSFORMACAO DE DADOS [' || SQLERRM || ']' || 'ERROR ['|| DBMS_UTILITY.FORMAT_ERROR_BACKTRACE || '] ';
+
+        INSERT INTO ADM_LOG_DS (
+            ID_LOG
+            , PASSO
+            , TIPO
+            , ACONTECIMENTO
+        ) VALUES (
+            SEQ_ADM_LOG_DS.NEXTVAL
+            , 'TRANSFORMACAO DE DADOS[PRC_TRANSFORMA_DADOS]'
+            , 'F'
+            , v_log
+        );
+    END;
+END PRC_TRANSFORMA_DADOS;
