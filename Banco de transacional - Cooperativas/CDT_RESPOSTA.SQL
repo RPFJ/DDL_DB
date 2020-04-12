@@ -1,17 +1,16 @@
-CREATE TABLE IF NOT EXISTS CDT_RESPOSTA (
-  idResposta INT NOT NULL,
-  desc_resposta VARCHAR(500) NULL,
-  id_questao INT NULL,
-  id_evolucao INT NULL,
-  PRIMARY KEY (idResposta),
-  CONSTRAINT fk_respostas_evolucao
-    FOREIGN KEY (id_evolucao)
-    REFERENCES REL_EVOLUCAO (idEvolucao)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT fk_resposta_questao
-    FOREIGN KEY (id_questao)
-    REFERENCES CDT_QUESTAO (idQuestao)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-);
+CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_resposta` (
+  `idResposta` INT NOT NULL AUTO_INCREMENT,
+  `desc_resposta` VARCHAR(500) NULL DEFAULT NULL,
+  `id_questao` INT NULL DEFAULT NULL,
+  `id_evolucao` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`idResposta`),
+  INDEX `fk_respostas_evolucao` (`id_evolucao` ASC) VISIBLE,
+  INDEX `fk_resposta_questao` (`id_questao` ASC) VISIBLE,
+  CONSTRAINT `fk_resposta_questao`
+    FOREIGN KEY (`id_questao`)
+    REFERENCES `empreendimentos`.`cdt_questao` (`idQuestao`),
+  CONSTRAINT `fk_respostas_evolucao`
+    FOREIGN KEY (`id_evolucao`)
+    REFERENCES `empreendimentos`.`rel_evolucao` (`idEvolucao`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;

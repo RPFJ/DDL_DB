@@ -1,6 +1,7 @@
-CREATE TABLE IF NOT EXISTS CDT_FORMACAO_COLETIVA (
-  idFormacao_coletiva INT NOT NULL,
-  desc_formacao_coletiva VARCHAR(100) NULL,
-  
-  PRIMARY KEY (idFormacao_coletiva)
-);
+CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_formacao_coletiva` (
+  `idFormacao_coletiva` INT NOT NULL AUTO_INCREMENT,
+  `desc_formacao_coletiva` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`idFormacao_coletiva`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;

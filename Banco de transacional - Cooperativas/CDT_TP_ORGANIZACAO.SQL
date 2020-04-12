@@ -1,5 +1,7 @@
-CREATE TABLE IF NOT EXISTS CDT_TP_ORGANIZACAO (
-  idTipoOrganizacao INT NOT NULL,
-  nome_tipo VARCHAR(100) NULL,
-  PRIMARY KEY (idTipoOrganizacao)
-);
+CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_tp_organizacao` (
+  `idTipoOrganizacao` INT NOT NULL AUTO_INCREMENT,
+  `nome_tipo` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`idTipoOrganizacao`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;

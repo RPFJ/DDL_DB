@@ -1,18 +1,17 @@
-CREATE TABLE IF NOT EXISTS CDT_CONTATO (
-  idContato INT NOT NULL,
-  nome VARCHAR(100) NULL,
-  id_tipo_contato INT NULL,
-  desc_contato VARCHAR(100) NULL,
-  id_cooperativa INT NULL,
-  PRIMARY KEY (idContato),
-  CONSTRAINT fk_contato_cooperativa
-    FOREIGN KEY (id_cooperativa)
-    REFERENCES CDT_COOPERATIVA (idCooperativa)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT fk_contato_tp_contato
-    FOREIGN KEY (id_tipo_contato)
-    REFERENCES CDT_TP_CONTATO (idtipo_contato)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-);
+CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_contato` (
+  `idContato` INT NOT NULL AUTO_INCREMENT,
+  `id_tipo_contato` INT NULL DEFAULT NULL,
+  `desc_contato` VARCHAR(100) NULL DEFAULT NULL,
+  `id_empreendimento` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`idContato`),
+  INDEX `fk_contato_empreendimento` (`id_empreendimento` ASC) VISIBLE,
+  INDEX `fk_contato_tp_contato` (`id_tipo_contato` ASC) VISIBLE,
+  CONSTRAINT `fk_contato_empreendimento`
+    FOREIGN KEY (`id_empreendimento`)
+    REFERENCES `empreendimentos`.`cdt_empreendimento` (`idEmpreendimento`),
+  CONSTRAINT `fk_contato_tp_contato`
+    FOREIGN KEY (`id_tipo_contato`)
+    REFERENCES `empreendimentos`.`cdt_tp_contato` (`idtipo_contato`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;

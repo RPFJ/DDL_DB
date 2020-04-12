@@ -1,5 +1,8 @@
-CREATE TABLE IF NOT EXISTS CDT_TP_REDE (
-  idtipo_rede INT NOT NULL,
-  descricao VARCHAR(100) NULL,
-  PRIMARY KEY (idtipo_rede)
-);
+CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_tp_rede` (
+  `idtipo_rede` INT NOT NULL AUTO_INCREMENT,
+  `desc_tipo` VARCHAR(500) NULL DEFAULT NULL,
+  PRIMARY KEY (`idtipo_rede`),
+  UNIQUE INDEX `desc_tipo` (`desc_tipo` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
