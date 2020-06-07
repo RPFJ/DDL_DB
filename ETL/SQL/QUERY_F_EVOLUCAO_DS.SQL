@@ -1,5 +1,5 @@
 SELECT evolucao.ID_COOPERATIVA
-    , evolucao.ID_REDE_PRODUTIVA
+    , evolucao.ID_REDE_ECONOMICA
     , evolucao.IDEVOLUCAO AS ID_EVOLUCAO
     , evolucao.GERACAO_RENDA AS VL_GERACAO_RENDA
     , evolucao.N_HOMENS AS VL_N_HOMENS

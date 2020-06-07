@@ -1,6 +1,6 @@
 CREATE TABLE D_TEMPO_DW
 (
-    SK_TEMPO            VARCHAR2(8),
+    SK_TEMPO            NUMBER,
     DATE_ID             DATE,
     WEEK_DAY_FULL       VARCHAR2(52),
     WEEK_DAY_SHORT      VARCHAR2(12),

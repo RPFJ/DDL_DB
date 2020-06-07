@@ -1,59 +1,29 @@
-CREATE OR REPLACE PACKAGE PKG_APAGA_REGISTROS_DW AS
+create or replace PACKAGE PKG_APAGA_REGISTROS_DW AS
 
-    PROCEDURE DELETE_F_D_COLETA_DW(p_data_ini IN DATE, p_data_fim IN DATE);
     PROCEDURE DELETE_F_D_LOCAL_DW(p_data_ini IN DATE, p_data_fim IN DATE);
     PROCEDURE DELETE_F_EVOLUCAO_DW(p_data_ini IN DATE, p_data_fim IN DATE);
 
 END PKG_APAGA_REGISTROS_DW;
 
-CREATE OR REPLACE PACKAGE BODY PKG_APAGA_REGISTROS_DW AS 
-    -- F_D_COLETA_DW
-    PROCEDURE DELETE_F_D_COLETA_DW(p_data_ini IN DATE, p_data_fim IN DATE) AS
-        CURSOR C_CURSOR IS 
-            SELECT ROWID
-            FROM BI_USER.F_DESENVOLVIMENTO_COLETA_DW
-            WHERE sk_tempo BETWEEN TO_CHAR(p_data_ini, 'RRRRMMDD') AND TO_CHAR(p_data_ini, 'RRRRMMDD');
-
-        TYPE TYPE_CURSOR IS TABLE OF C_CURSOR%ROWTYPE INDEX BY BINARY_INTEGER;
-        R_CURSOR    TYPE_CURSOR;   
-    
-    BEGIN
-        OPEN C_CURSOR;
-
-        LOOP
-            --preenche o cursor de 10000 em 10000 registros
-            FETCH C_CURSOR 
-            BULK COLLECT INTO R_CURSOR 
-            LIMIT 10000;
-            EXIT WHEN R_CURSOR.COUNT = 0;
-
-            FORALL I IN 1 .. R_CURSOR.COUNT
-                DELETE FROM BI_USER.F_DESENVOLVIMENTO_COLETA_DW WHERE ROWID = R_CURSOR(I).ROWID;
-
-            --VAI APLICAR COMMIT DE 10000 EM 10000;
-            COMMIT;
-        END LOOP C_CURSOR;
-
-        CLOSE C_CURSOR;
-    END;
+create or replace NONEDITIONABLE PACKAGE BODY PKG_APAGA_REGISTROS_DW AS
 
      -- F_D_LOCAL_DW
     PROCEDURE DELETE_F_D_LOCAL_DW(p_data_ini IN DATE, p_data_fim IN DATE) AS
-        CURSOR C_CURSOR IS 
+        CURSOR C_CURSOR IS
             SELECT ROWID
             FROM BI_USER.F_DESENVOLVIMENTO_LOCAL_DW
             WHERE sk_tempo BETWEEN TO_CHAR(p_data_ini, 'RRRRMMDD') AND TO_CHAR(p_data_ini, 'RRRRMMDD');
 
         TYPE TYPE_CURSOR IS TABLE OF C_CURSOR%ROWTYPE INDEX BY BINARY_INTEGER;
         R_CURSOR    TYPE_CURSOR;
-    
+
     BEGIN
         OPEN C_CURSOR;
 
         LOOP
             --preenche o cursor de 10000 em 10000 registros
-            FETCH C_CURSOR 
-            BULK COLLECT INTO R_CURSOR 
+            FETCH C_CURSOR
+            BULK COLLECT INTO R_CURSOR
             LIMIT 10000;
             EXIT WHEN R_CURSOR.COUNT = 0;
 
@@ -69,21 +39,21 @@ CREATE OR REPLACE PACKAGE BODY PKG_APAGA_REGISTROS_DW AS
 
      -- F_EVOLUCAO_DW
     PROCEDURE DELETE_F_EVOLUCAO_DW(p_data_ini IN DATE, p_data_fim IN DATE) AS
-        CURSOR C_CURSOR IS 
+        CURSOR C_CURSOR IS
             SELECT ROWID
             FROM BI_USER.F_EVOLUCAO_DW
             WHERE sk_tempo BETWEEN TO_CHAR(p_data_ini, 'RRRRMMDD') AND TO_CHAR(p_data_ini, 'RRRRMMDD');
 
         TYPE TYPE_CURSOR IS TABLE OF C_CURSOR%ROWTYPE INDEX BY BINARY_INTEGER;
         R_CURSOR    TYPE_CURSOR;
-    
+
     BEGIN
         OPEN C_CURSOR;
 
         LOOP
             --preenche o cursor de 10000 em 10000 registros
-            FETCH C_CURSOR 
-            BULK COLLECT INTO R_CURSOR 
+            FETCH C_CURSOR
+            BULK COLLECT INTO R_CURSOR
             LIMIT 10000;
             EXIT WHEN R_CURSOR.COUNT = 0;
 
