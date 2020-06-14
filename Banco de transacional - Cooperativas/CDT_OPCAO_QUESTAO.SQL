@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_opcao_questao` (
-  `idOpcao` INT NOT NULL AUTO_INCREMENT,
+  `idOpcao` INT(11) NOT NULL AUTO_INCREMENT,
   `desc_opcao` TEXT NULL DEFAULT NULL,
-  `id_questao` INT NULL DEFAULT NULL,
+  `id_questao` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`idOpcao`),
   INDEX `fk_opcao_questao_questao` (`id_questao` ASC) VISIBLE,
   CONSTRAINT `fk_opcao_questao_questao`

@@ -1,13 +1,13 @@
 CREATE TABLE IF NOT EXISTS `empreendimentos`.`rel_evolucao` (
-  `idEvolucao` INT NOT NULL AUTO_INCREMENT,
+  `idEvolucao` INT(11) NOT NULL AUTO_INCREMENT,
   `data` DATE NULL DEFAULT NULL,
-  `geracao_renda` FLOAT NULL DEFAULT NULL,
-  `n_homens` INT NULL DEFAULT NULL,
-  `n_mulheres` INT NULL DEFAULT NULL,
+  `id_geracao_renda` INT(11) NOT NULL,
+  `n_homens` INT(11) NULL DEFAULT NULL,
+  `n_mulheres` INT(11) NULL DEFAULT NULL,
   `computador` TINYINT(1) NULL DEFAULT NULL,
   `internet` TINYINT(1) NULL DEFAULT NULL,
-  `id_empreendimento` INT NULL DEFAULT NULL,
-  `id_rede_economica` INT NULL DEFAULT NULL,
+  `id_empreendimento` INT(11) NULL DEFAULT NULL,
+  `id_rede_economica` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`idEvolucao`),
   INDEX `fk_evolucao_empreendimento` (`id_empreendimento` ASC) VISIBLE,
   INDEX `fk_evolucao_rede_economica` (`id_rede_economica` ASC) VISIBLE,
@@ -18,4 +18,5 @@ CREATE TABLE IF NOT EXISTS `empreendimentos`.`rel_evolucao` (
     FOREIGN KEY (`id_rede_economica`)
     REFERENCES `empreendimentos`.`cdt_rede_economica` (`idRede_economica`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;

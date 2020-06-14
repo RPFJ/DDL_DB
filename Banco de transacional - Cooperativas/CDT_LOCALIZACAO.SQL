@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_localizacao` (
-  `idLocalizacao` INT NOT NULL AUTO_INCREMENT,
+  `idLocalizacao` INT(11) NOT NULL AUTO_INCREMENT,
   `desc_localizacao` VARCHAR(500) NULL DEFAULT NULL,
   PRIMARY KEY (`idLocalizacao`))
 ENGINE = InnoDB

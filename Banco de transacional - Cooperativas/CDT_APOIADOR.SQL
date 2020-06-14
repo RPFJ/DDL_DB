@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_apoiador` (
-  `idApoiador` INT NOT NULL AUTO_INCREMENT,
+  `idApoiador` INT(11) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NULL DEFAULT NULL,
   `cidade` VARCHAR(100) NULL DEFAULT NULL,
   `tipo_de_ajuda` VARCHAR(100) NULL DEFAULT NULL,

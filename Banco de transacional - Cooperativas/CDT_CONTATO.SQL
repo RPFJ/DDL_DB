@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_contato` (
-  `idContato` INT NOT NULL AUTO_INCREMENT,
-  `id_tipo_contato` INT NULL DEFAULT NULL,
+  `idContato` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_tipo_contato` INT(11) NULL DEFAULT NULL,
   `desc_contato` VARCHAR(100) NULL DEFAULT NULL,
-  `id_empreendimento` INT NULL DEFAULT NULL,
+  `id_empreendimento` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`idContato`),
   INDEX `fk_contato_empreendimento` (`id_empreendimento` ASC) VISIBLE,
   INDEX `fk_contato_tp_contato` (`id_tipo_contato` ASC) VISIBLE,
