@@ -1,6 +1,3 @@
--- -----------------------------------------------------
--- Schema empreendimentos
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `empreendimentos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `empreendimentos` ;
 
@@ -124,19 +121,6 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
 
-
--- -----------------------------------------------------
--- Table `empreendimentos`.`cdt_formacao_coletiva`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_formacao_coletiva` (
-  `idFormacao_coletiva` INT(11) NOT NULL AUTO_INCREMENT,
-  `desc_formacao_coletiva` VARCHAR(100) NULL DEFAULT NULL,
-  PRIMARY KEY (`idFormacao_coletiva`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = latin1;
-
-
 -- -----------------------------------------------------
 -- Table `empreendimentos`.`cdt_geracao_renda`
 -- -----------------------------------------------------
@@ -216,7 +200,7 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `empreendimentos`.`rel_evolucao` (
   `idEvolucao` INT(11) NOT NULL AUTO_INCREMENT,
-  `data` DATE NULL DEFAULT NULL,
+  `data` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `id_geracao_renda` INT(11) NOT NULL,
   `n_homens` INT(11) NULL DEFAULT NULL,
   `n_mulheres` INT(11) NULL DEFAULT NULL,
@@ -227,12 +211,18 @@ CREATE TABLE IF NOT EXISTS `empreendimentos`.`rel_evolucao` (
   PRIMARY KEY (`idEvolucao`),
   INDEX `fk_evolucao_empreendimento` (`id_empreendimento` ASC) VISIBLE,
   INDEX `fk_evolucao_rede_economica` (`id_rede_economica` ASC) VISIBLE,
+  INDEX `fk_evolucao_geracao_renda_idx` (`id_geracao_renda` ASC) VISIBLE,
   CONSTRAINT `fk_evolucao_empreendimento`
     FOREIGN KEY (`id_empreendimento`)
     REFERENCES `empreendimentos`.`cdt_empreendimento` (`idEmpreendimento`),
   CONSTRAINT `fk_evolucao_rede_economica`
     FOREIGN KEY (`id_rede_economica`)
-    REFERENCES `empreendimentos`.`cdt_rede_economica` (`idRede_economica`))
+    REFERENCES `empreendimentos`.`cdt_rede_economica` (`idRede_economica`),
+  CONSTRAINT `fk_evolucao_geracao_renda`
+    FOREIGN KEY (`id_geracao_renda`)
+    REFERENCES `empreendimentos`.`cdt_geracao_renda` (`idGeracao_renda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
@@ -244,12 +234,12 @@ DEFAULT CHARACTER SET = latin1;
 CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_resposta` (
   `idResposta` INT(11) NOT NULL AUTO_INCREMENT,
   `id_opcao_questao` INT(11) NOT NULL,
-  `id_questao` INT(11) NOT NULL,
-  `id_evolucao` INT(11) NOT NULL,
+  `id_questao` INT(11) NULL DEFAULT NULL,
+  `id_evolucao` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`idResposta`),
   INDEX `fk_respostas_evolucao` (`id_evolucao` ASC) VISIBLE,
   INDEX `fk_resposta_questao` (`id_questao` ASC) VISIBLE,
-  INDEX `fk_respostas_opcao_questao_idx` (`id_opcao_questao` ASC) VISIBLE,
+  INDEX `fk_respostas_opcao_questao` (`id_opcao_questao` ASC) VISIBLE,
   CONSTRAINT `fk_resposta_questao`
     FOREIGN KEY (`id_questao`)
     REFERENCES `empreendimentos`.`cdt_questao` (`idQuestao`),
@@ -258,10 +248,9 @@ CREATE TABLE IF NOT EXISTS `empreendimentos`.`cdt_resposta` (
     REFERENCES `empreendimentos`.`rel_evolucao` (`idEvolucao`),
   CONSTRAINT `fk_respostas_opcao_questao`
     FOREIGN KEY (`id_opcao_questao`)
-    REFERENCES `empreendimentos`.`cdt_opcao_questao` (`idOpcao`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `empreendimentos`.`cdt_opcao_questao` (`idOpcao`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = latin1;
 
 

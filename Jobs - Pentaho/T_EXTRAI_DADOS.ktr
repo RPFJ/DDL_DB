@@ -653,19 +653,19 @@
     </partitioning>
     <connection>Empreendimentos - Relacional</connection>
     <sql>SELECT IDEMPREENDIMENTO AS ID_EMPREENDIMENTO
-    , empreendimento.descricao AS NOME_EMPREENDIMENTO
-    , empreendimento.ENDERECO
-    , empreendimento.CIDADE
-    , empreendimento.LATITUDE
-    , empreendimento.LONGITUDE
-    , empreendimento.SIGLA
-    , empreendimento.ID_AREA_ATUACAO 
-    , a_atuacao.DESC_AREA_ATUACAO 
-    , empreendimento.ID_LOCALIZACAO
-    , local.DESC_LOCALIZACAO
-    , empreendimento.ID_TIPO_ORGANIZACAO 
-    , t_organizacao.NOME_TIPO AS DESC_TIPO_ORGANIZACAO
-    , empreendimento.ANO_INICIO
+    , COALESCE(empreendimento.descricao, '-1')  AS NOME_EMPREENDIMENTO
+    , COALESCE(empreendimento.ENDERECO, '* não definido *')  AS ENDERECO
+    , COALESCE(empreendimento.CIDADE, '* não definido *' )  AS CIDADE
+    , COALESCE(empreendimento.LATITUDE, -1 )  AS LATITUDE
+    , COALESCE(empreendimento.LONGITUDE, -1 )  AS LONGITUDE
+    , COALESCE(empreendimento.SIGLA, '* não definido *' )  AS SIGLA
+    , COALESCE(empreendimento.ID_AREA_ATUACAO, '-1' )   AS ID_AREA_ATUACAO
+    , COALESCE(a_atuacao.DESC_AREA_ATUACAO, '* não definido *' )   AS DESC_AREA_ATUACAO
+    , COALESCE(empreendimento.ID_LOCALIZACAO, -1 )  AS ID_LOCALIZACAO
+    , COALESCE(local.DESC_LOCALIZACAO, '* não definido *' )  AS DESC_LOCALIZACAO
+    , COALESCE(empreendimento.ID_TIPO_ORGANIZACAO, -1 )   AS ID_TIPO_ORGANIZACAO
+    , COALESCE(t_organizacao.NOME_TIPO, '* não definido *' )  AS  DESC_TIPO_ORGANIZACAO
+    , COALESCE(empreendimento.ANO_INICIO,  0000 )  AS ANO_INICIO
     , 'T' AS FG_STATUS_ETL
 FROM CDT_EMPREENDIMENTO empreendimento
 LEFT JOIN CDT_AREA_ATUACAO a_atuacao
@@ -843,14 +843,14 @@ ON local.IDLOCALIZACAO = empreendimento.ID_LOCALIZACAO</sql>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
       <value-meta>
-        <type>Integer</type>
+        <type>String</type>
         <storagetype>normal</storagetype>
         <name>ID_AREA_ATUACAO</name>
-        <length>9</length>
-        <precision>0</precision>
+        <length>11</length>
+        <precision>-1</precision>
         <origin>D_EMPREENDIMENTO</origin>
         <comments>ID_AREA_ATUACAO</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
+        <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>
         <currency_symbol/>
@@ -892,7 +892,7 @@ ON local.IDLOCALIZACAO = empreendimento.ID_LOCALIZACAO</sql>
         <type>Integer</type>
         <storagetype>normal</storagetype>
         <name>ID_LOCALIZACAO</name>
-        <length>9</length>
+        <length>15</length>
         <precision>0</precision>
         <origin>D_EMPREENDIMENTO</origin>
         <comments>ID_LOCALIZACAO</comments>
@@ -938,7 +938,7 @@ ON local.IDLOCALIZACAO = empreendimento.ID_LOCALIZACAO</sql>
         <type>Integer</type>
         <storagetype>normal</storagetype>
         <name>ID_TIPO_ORGANIZACAO</name>
-        <length>9</length>
+        <length>15</length>
         <precision>0</precision>
         <origin>D_EMPREENDIMENTO</origin>
         <comments>ID_TIPO_ORGANIZACAO</comments>
@@ -984,7 +984,7 @@ ON local.IDLOCALIZACAO = empreendimento.ID_LOCALIZACAO</sql>
         <type>Integer</type>
         <storagetype>normal</storagetype>
         <name>ANO_INICIO</name>
-        <length>9</length>
+        <length>15</length>
         <precision>0</precision>
         <origin>D_EMPREENDIMENTO</origin>
         <comments>ANO_INICIO</comments>
@@ -1158,7 +1158,7 @@ ON local.IDLOCALIZACAO = empreendimento.ID_LOCALIZACAO</sql>
     </partitioning>
     <connection>Empreendimentos - Relacional</connection>
     <sql>SELECT idGeracao_renda as ID_GERACAO_RENDA
-, descricao as DESC_GERACAO_RENDA
+, COALESCE(descricao, '* não definido *')  as DESC_GERACAO_RENDA
 , 'T' AS FG_STATUS_ETL 
 FROM CDT_GERACAO_RENDA</sql>
     <limit>0</limit>
@@ -1544,11 +1544,11 @@ FROM CDT_GERACAO_RENDA</sql>
     </partitioning>
     <connection>Empreendimentos - Relacional</connection>
     <sql>SELECT r_economica.IDREDE_ECONOMICA AS ID_REDE_ECONOMICA
-    , r_economica.descricao AS DESC_REDE_ECONOMICA
-    , r_economica.LATITUDE 
-    , r_economica.LONGITUDE
-    , r_economica.ID_TIPO_REDE 
-    , t_rede.desc_tipo AS DESC_TIPO_REDE
+    , COALESCE(r_economica.descricao, 0 ) AS DESC_REDE_ECONOMICA
+    , COALESCE(r_economica.LATITUDE, 0) AS LATITUDE  
+    , COALESCE(r_economica.LONGITUDE, 0) AS LONGITUDE 
+    , COALESCE(r_economica.ID_TIPO_REDE, -1) AS ID_TIPO_REDE  
+    , COALESCE(t_rede.desc_tipo, '* não definido *') AS DESC_TIPO_REDE
 	, 'T' AS FG_STATUS_ETL
 FROM CDT_REDE_ECONOMICA r_economica
 LEFT JOIN CDT_TP_REDE t_rede
@@ -1657,7 +1657,7 @@ ON r_economica.ID_TIPO_REDE =  t_rede.IDTIPO_REDE;
         <type>Integer</type>
         <storagetype>normal</storagetype>
         <name>ID_TIPO_REDE</name>
-        <length>9</length>
+        <length>15</length>
         <precision>0</precision>
         <origin>D_REDE_ECONOMICA</origin>
         <comments>ID_TIPO_REDE</comments>
@@ -1899,7 +1899,7 @@ ON r_economica.ID_TIPO_REDE =  t_rede.IDTIPO_REDE;
     <connection>Empreendimentos - Relacional</connection>
     <sql> SELECT evolucao.ID_EMPREENDIMENTO
 	, evolucao.ID_REDE_ECONOMICA
-    , DATE_ADD(DATE(COALESCE(data, current_timestamp)), INTERVAL -2 MONTH)  as DT_REGISTRO
+    , DATE(COALESCE(data, current_timestamp))  as DT_REGISTRO
     , evolucao.ID_GERACAO_RENDA
     , resposta.id_questao as ID_QUESTAO
 	, resposta.id_opcao_questao as ID_RESPOSTA
@@ -2128,11 +2128,11 @@ ON resposta.id_evolucao = evolucao.idevolucao;</sql>
     <connection>Empreendimentos - Relacional</connection>
     <sql> SELECT 
  ID_EMPREENDIMENTO
- , DATE_ADD(DATE(COALESCE(data, current_timestamp)), INTERVAL -2 MONTH)  as DT_REGISTRO
- , ID_REDE_ECONOMICA
- , ID_GERACAO_RENDA
- , n_homens AS VL_N_HOMENS
- , n_mulheres AS VL_N_MULHERES
+ , DATE(COALESCE(data, current_timestamp))  as DT_REGISTRO
+ , COALESCE(ID_REDE_ECONOMICA, 0)AS ID_REDE_ECONOMICA
+ , COALESCE(ID_GERACAO_RENDA, 0)AS ID_GERACAO_RENDA
+ , COALESCE(n_homens, 0) AS VL_N_HOMENS
+ , COALESCE(n_mulheres, 0) AS VL_N_MULHERES
  , CAST(computador AS CHAR) AS VL_ACESSO_COMPUTADOR
  , CAST(internet AS CHAR) AS VL_ACESSO_INTERNET
  , 'E' AS FG_STATUS_ETL 
@@ -2195,7 +2195,7 @@ ON resposta.id_evolucao = evolucao.idevolucao;</sql>
         <type>Integer</type>
         <storagetype>normal</storagetype>
         <name>ID_REDE_ECONOMICA</name>
-        <length>9</length>
+        <length>15</length>
         <precision>0</precision>
         <origin>F_EVOLUCAO</origin>
         <comments>ID_REDE_ECONOMICA</comments>
@@ -2218,7 +2218,7 @@ ON resposta.id_evolucao = evolucao.idevolucao;</sql>
         <type>Integer</type>
         <storagetype>normal</storagetype>
         <name>ID_GERACAO_RENDA</name>
-        <length>9</length>
+        <length>15</length>
         <precision>0</precision>
         <origin>F_EVOLUCAO</origin>
         <comments>ID_GERACAO_RENDA</comments>
@@ -2241,7 +2241,7 @@ ON resposta.id_evolucao = evolucao.idevolucao;</sql>
         <type>Integer</type>
         <storagetype>normal</storagetype>
         <name>VL_N_HOMENS</name>
-        <length>9</length>
+        <length>15</length>
         <precision>0</precision>
         <origin>F_EVOLUCAO</origin>
         <comments>VL_N_HOMENS</comments>
@@ -2264,7 +2264,7 @@ ON resposta.id_evolucao = evolucao.idevolucao;</sql>
         <type>Integer</type>
         <storagetype>normal</storagetype>
         <name>VL_N_MULHERES</name>
-        <length>9</length>
+        <length>15</length>
         <precision>0</precision>
         <origin>F_EVOLUCAO</origin>
         <comments>VL_N_MULHERES</comments>

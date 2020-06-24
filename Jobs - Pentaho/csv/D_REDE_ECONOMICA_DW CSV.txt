@@ -1,0 +1,4 @@
+SK_REDE_ECONOMICA;ID_REDE_ECONOMICA;DESC_REDE_ECONOMICA;LATITUDE;LONGITUDE;ID_TIPO_REDE;DESC_TIPO_REDE;DT_INCLUSAO_DW;DT_ALTERACAO_DW
+2.0;1.0;Rede de produtores manuais                                                                          ;-21,2896            ;-50,3412            ;1.0;Rede Econômica                                    ;2020/06/23 22:10:25.000000000;
+3.0;2.0;Rede de enfermagem                                                                                  ;-21,2221            ;-50,4373            ;2.0;Rede de Cooperativas                              ;2020/06/23 22:10:25.000000000;
+4.0;3.0;Rede de coleta de recicláveis                                                                       ;-21,2926            ;-50,3406            ;2.0;Rede de Cooperativas                              ;2020/06/23 22:10:25.000000000;
